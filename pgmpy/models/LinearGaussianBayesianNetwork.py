@@ -492,6 +492,8 @@ class LinearGaussianBayesianNetwork(DAG):
 
             for parent in list(model.get_parents(var)):
                 model.remove_edge(parent, var)
+            for evi in cpd.evidence:
+                model.add_edge(evi, var)
 
         mean, cov = model.to_joint_gaussian()
         variables = list(nx.topological_sort(model))
